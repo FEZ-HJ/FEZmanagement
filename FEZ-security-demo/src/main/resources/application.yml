@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://101.132.167.102:3306/time-management?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: dream
+    username: time-management
     password: 1qazXSW@
 
   session:
@@ -11,3 +11,6 @@ spring:
 security:
   basic:
     enabled: false
+
+server:
+  port: 80

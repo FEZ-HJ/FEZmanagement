@@ -8,9 +8,15 @@ spring:
   session:
     store-type: none
 
-security:
-  basic:
-    enabled: false
+#security:
+#  basic:
+#    enabled: false
 
 server:
   port: 80
+
+fez:
+  security:
+    browser:
+      loginPage: /demo-signIn.html
+      loginType: REDIRECT

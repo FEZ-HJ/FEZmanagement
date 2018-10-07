@@ -19,4 +19,11 @@ fez:
   security:
     browser:
       loginPage: /demo-signIn.html
-      loginType: REDIRECT
+      loginType: JSON
+    code:
+      image:
+        width: 100
+        height: 20
+        length: 6
+        expireIn: 100
+        url: /user,/user/*

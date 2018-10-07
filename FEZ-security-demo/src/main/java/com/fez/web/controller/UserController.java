@@ -1,6 +1,7 @@
 package com.fez.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fez.dto.User;
 import com.fez.dto.UserQueryCondition;
 import com.fez.exception.UserNotExistException;
@@ -9,6 +10,10 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,5 +70,11 @@ public class UserController {
     @DeleteMapping("/{id:\\d+}")
     public void delete(@PathVariable String id){
         System.out.println(id);
+    }
+
+    @GetMapping("/me")
+//    public Object getCurrentUser(Authentication authentication){
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails user){
+        return user;
     }
 }

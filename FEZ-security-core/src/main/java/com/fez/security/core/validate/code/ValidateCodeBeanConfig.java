@@ -1,6 +1,7 @@
 package com.fez.security.core.validate.code;
 
 import com.fez.security.core.properties.SecurityProperties;
+import com.fez.security.core.validate.code.image.ImageCodeGenerator;
 import com.fez.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.fez.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class ValidateCodeBeanConfig {
     private SecurityProperties securityProperties;
 
     @Bean
-    @ConditionalOnMissingBean(name = "imageCodeGenerator")//是否已经有imageCodeGenerator这个bean，如果有，下面的bean不加载
-    public ValidateCodeGenerator imageCodeGenerator(){
+    @ConditionalOnMissingBean(name = "imageValidateCodeGenerator")//是否已经有imageCodeGenerator这个bean，如果有，下面的bean不加载
+    public ValidateCodeGenerator imageValidateCodeGenerator(){
         ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
         codeGenerator.setSecurityProperties(securityProperties);
         return codeGenerator;

@@ -1,6 +1,7 @@
-package com.fez.security.core.validate.code;
+package com.fez.security.core.validate.code.image;
 
 import com.fez.security.core.properties.SecurityProperties;
+import com.fez.security.core.validate.code.ValidateCodeGenerator;
 import lombok.Data;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -14,7 +15,7 @@ import java.util.Random;
  * 2018/10/7
  */
 @Data
-public class ImageCodeGenerator implements ValidateCodeGenerator{
+public class ImageCodeGenerator implements ValidateCodeGenerator {
 
     private SecurityProperties securityProperties;
 

@@ -1,5 +1,6 @@
-package com.fez.security.core.validate.code;
+package com.fez.security.core.validate.code.image;
 
+import com.fez.security.core.validate.code.ValidateCode;
 import lombok.Data;
 
 import java.awt.image.BufferedImage;

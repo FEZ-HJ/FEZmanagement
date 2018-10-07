@@ -1,8 +1,7 @@
 package com.fez.code;
 
-import com.fez.security.core.validate.code.ImageCode;
+import com.fez.security.core.validate.code.image.ImageCode;
 import com.fez.security.core.validate.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**

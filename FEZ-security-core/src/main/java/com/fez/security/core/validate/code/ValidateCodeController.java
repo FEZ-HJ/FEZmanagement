@@ -1,21 +1,18 @@
 package com.fez.security.core.validate.code;
 
-import com.fez.security.core.properties.SecurityProperties;
+import com.fez.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * Created by H.J
@@ -31,10 +28,24 @@ public class ValidateCodeController {
     @Autowired
     private ValidateCodeGenerator imageCodeGenerator;
 
+    @Autowired
+    private ValidateCodeGenerator smsCodeGenerator;
+
+    @Autowired
+    private SmsCodeSender smsCodeSender;
+
     @GetMapping("/code/image")
     public void createCode(ServletWebRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = imageCodeGenerator.generate(request);
+        ImageCode imageCode = (ImageCode)imageCodeGenerator.generate(request);
         sessionStrategy.setAttribute(request,SESSION_KEY,imageCode);
         ImageIO.write(imageCode.getImage(),"JPEG",response.getOutputStream());
+    }
+
+    @GetMapping("/code/sms")
+    public void createSmsCode(ServletWebRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
+        ValidateCode smsCode = smsCodeGenerator.generate(request);
+        sessionStrategy.setAttribute(request,SESSION_KEY,smsCode);
+        String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(),"mobile");
+        smsCodeSender.send(mobile,smsCode.getCode());
     }
 }

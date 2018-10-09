@@ -2,6 +2,8 @@ package com.fez.security.core.properties;
 
 
 import lombok.Data;
+import org.springframework.boot.autoconfigure.social.SocialProperties;
+
 
 /**
  * Created by H.J
@@ -11,9 +13,4 @@ import lombok.Data;
 public class QQProperties extends SocialProperties {
 
     private String providerId = "qq";
-
-    private String appId ="";
-
-    private String appSecret="";
-
 }

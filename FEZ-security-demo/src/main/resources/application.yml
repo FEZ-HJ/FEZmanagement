@@ -31,3 +31,5 @@ fez:
       qq:
         app-id:
         app-secret:
+        providerId: callback.do
+      filterProcessesUrl: /qqLogin

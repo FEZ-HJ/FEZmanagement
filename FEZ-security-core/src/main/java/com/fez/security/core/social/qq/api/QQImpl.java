@@ -31,7 +31,7 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
         System.out.println(result);
 
-        this.openId = StringUtils.substringBetween(result,"\"openid\":","}");
+        this.openId = StringUtils.substringBetween(result,"\"openid\":\"","\"}");
     }
 
 

@@ -48,7 +48,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public SpringSocialConfigurer fezSocialSecurityConfig() {
         String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
         FezSpringSocialConfigurer configurer = new FezSpringSocialConfigurer(filterProcessesUrl);
-//        configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
+        configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
         return configurer;
     }
 

@@ -20,6 +20,7 @@ fez:
     browser:
       loginPage: /demo-signIn.html
       loginType: JSON
+      signUpUrl: /demo-signUp.html
     code:
       image:
         width: 100

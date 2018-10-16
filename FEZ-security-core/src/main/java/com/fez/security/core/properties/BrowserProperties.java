@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class BrowserProperties {
 
+    private String signUpUrl = "/fez-signUp.html";
+
     private String loginPage = "/fez-signIn.html";
 
     private LoginType loginType = LoginType.JSON;

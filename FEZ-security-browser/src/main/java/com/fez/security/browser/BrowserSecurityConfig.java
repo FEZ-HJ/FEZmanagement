@@ -1,5 +1,6 @@
 package com.fez.security.browser;
 
+import com.fez.security.browser.session.FezExpiredSessionStrategy;
 import com.fez.security.core.authentication.AbstractChannelSecurityConfig;
 import com.fez.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.fez.security.core.properties.SecurityConstants;
@@ -73,6 +74,13 @@ public class BrowserSecurityConfig  extends AbstractChannelSecurityConfig {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
+            .sessionManagement()
+                .invalidSessionUrl(SecurityConstants.DEFAULT_SESSION_INVALID_URL)
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .expiredSessionStrategy(new FezExpiredSessionStrategy(""))
+                .and()
+                .and()
             .authorizeRequests()
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
@@ -80,7 +88,8 @@ public class BrowserSecurityConfig  extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
                         securityProperties.getBrowser().getSignUpUrl(),
-                        "/user/register")
+                        "/user/register",
+                        "/session/invalid")
                     .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -1,5 +1,6 @@
 package com.fez.security.core.social;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.http.HttpServletRequest;

@@ -3,6 +3,7 @@ package com.fez.security.core.validate.code;
 import lombok.Data;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,7 +11,9 @@ import java.time.LocalDateTime;
  * 2018/10/7
  */
 @Data
-public class ValidateCode {
+public class ValidateCode implements Serializable {
+
+    private static final long serialVersionUID = -1376104400636522723L;
 
     private String code;
 

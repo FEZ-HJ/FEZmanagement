@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -43,6 +44,9 @@ public class BrowserSecurityConfig  extends AbstractChannelSecurityConfig {
 
     @Autowired
     private SpringSocialConfigurer springSocialConfigurer;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -76,16 +80,23 @@ public class BrowserSecurityConfig  extends AbstractChannelSecurityConfig {
                 .and()
             .sessionManagement()
                 .invalidSessionUrl(SecurityConstants.DEFAULT_SESSION_INVALID_URL)
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true)
-                .expiredSessionStrategy(new FezExpiredSessionStrategy(""))
+                .maximumSessions(10)
+//                .maxSessionsPreventsLogin(true)
+                .expiredSessionStrategy(new FezExpiredSessionStrategy("/index.html"))
                 .and()
+                .and()
+            .logout()
+                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/fez-logout.html")
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies()
                 .and()
             .authorizeRequests()
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
+                        securityProperties.getBrowser().getSignOutUrl(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
                         securityProperties.getBrowser().getSignUpUrl(),
                         "/user/register",
